@@ -1,138 +1,122 @@
-### Project Structure
+# EasyTeam, a easy-to-use template for team introduction.
+
+## Features
+
+- All content is managed via `src/data.js` for easy updates.
+- The site is fully responsive and includes animated transitions.
+- If an image is missing, `assets/error.jpg` will be shown as a fallback.
+- Licensed under the Apache License 2.0 (see `LICENSE`).
+
+---
+
+## To-do List
+
+- [ ] i18n
+- [X] Scrolling animations
+
+---
+
+## Project Structure
 
 ```
-/my-web-project
+EasyTeam/
 │
-├── index.html
-├── style.css
-├── script.js
-└── data.json
+├── public/
+│   ├── index.html
+│   ├── style.css
+│   └── assets/
+│       └── error.jpg
+├── src/
+│   ├── data.js
+│   └── main.js
+├── LICENSE
+└── README.md
 ```
 
-### 1. `index.html`
+### 1. `public/index.html`
 
-This is the main HTML file that will load the CSS and JavaScript files and provide a basic structure for the webpage.
+This is the main HTML file that loads the CSS and JavaScript files and provides the structure for the webpage. Most content is dynamically injected via JavaScript. You may not need to modify it unless you want to add advanced features and you know the function of your code exactly.
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web Project</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header>
-        <h1>My Web Project</h1>
-    </header>
-    <main id="content">
-        <!-- Dynamic content will be injected here -->
-    </main>
-    <footer>
-        <p>&copy; 2025 My Web Project. All rights reserved.</p>
-    </footer>
-    <script src="script.js"></script>
-</body>
-</html>
+Key points:
+
+- Loads styles from `style.css`.
+- Loads data and logic from `../src/data.js` and `../src/main.js`.
+- Contains placeholder elements with IDs for dynamic content.
+
+### 2. `public/style.css`
+
+This file contains all the styles for the webpage, including layout, colors, animations, and responsive design. It styles navigation, hero, about, sponsors, achievements, gallery, contact, repositories, and footer sections.
+
+### 3. `src/data.js`
+
+This JavaScript file contains a `data` object with all the content for the site, including navigation links, hero section, about info, sponsors, achievements, gallery images, contact info, repositories, and footer text.
+
+Example:
+
+```js
+const data = {
+    pageTitle: "Page Title",
+    logo: "Logo",
+    navLinks: [
+        { text: "Home", href: "#home" },
+        // ...
+    ],
+    hero: {
+        title: "Hero Title",
+        subtitle: "Hero Subtitle",
+        buttons: [
+            { text: "Button 1", href: "#" }
+        ],
+        images: [
+            "image1.jpg",
+            "image2.jpg"
+        ]
+    },
+    // ... more sections ...
+};
 ```
 
-### 2. `style.css`
+### 4. `src/main.js`
 
-This file contains the styles for the webpage. You can customize it as needed.
+This JavaScript file dynamically populates the HTML page using the `data` object. It:
 
-```css
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
+- Sets the page title and logo.
+- Populates navigation, hero, about, sponsors, achievements, gallery, contact, repositories, and footer sections.
+- Handles image loading errors (shows `assets/error.jpg` if an image fails to load).
+- Adds scroll and intersection animations.
+- Handles mobile navigation toggling.
 
-header {
-    background: #35424a;
-    color: #ffffff;
-    padding: 10px 0;
-    text-align: center;
-}
+### 5. `public/assets/error.jpg`
 
-main {
-    padding: 20px;
-}
+A fallback image used when any image fails to load.
 
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background: #35424a;
-    color: #ffffff;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-```
+---
 
-### 3. `script.js`
+## How to Run
 
-This JavaScript file will fetch the data from the `data.json` file and dynamically generate the content in the main section of the webpage.
+1. Place your images (e.g., `image1.jpg`, `about-image.jpg`, etc.) in the `public/assets/` folder or update the paths in `data.js` to match your assets.
+2. Open `public/index.html` in a web browser to see the project in action.
 
-```javascript
-// Fetch data from the JSON file and build the page
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            const content = document.getElementById('content');
-            data.items.forEach(item => {
-                const itemDiv = document.createElement('div');
-                itemDiv.classList.add('item');
-                itemDiv.innerHTML = `
-                    <h2>${item.title}</h2>
-                    <p>${item.description}</p>
-                `;
-                content.appendChild(itemDiv);
-            });
-        })
-        .catch(error => console.error('Error fetching data:', error));
-});
-```
+---
 
-### 4. `data.json`
+## Contribution Guide
 
-This JSON file contains the data that will be used to populate the webpage. You can add more items as needed.
+We welcome contributions! To contribute:
 
-```json
-{
-    "items": [
-        {
-            "title": "Item 1",
-            "description": "This is the description for item 1."
-        },
-        {
-            "title": "Item 2",
-            "description": "This is the description for item 2."
-        },
-        {
-            "title": "Item 3",
-            "description": "This is the description for item 3."
-        }
-    ]
-}
-```
+1. Fork this repository if you find any bugs or have ideas (you may check issues of this repo or the [To-do List](#to-do-list) section).
+2. Create a new branch for your feature or bugfix.
+3. Make your changes in the appropriate files (`src/data.js`, `src/main.js`, `public/style.css`, etc.).
+4. Ensure your code is clean and well-documented.
+5. Submit a pull request with a clear description of your changes.
 
-### Explanation
+**Tips:**
 
-1. **HTML Structure**: The `index.html` file provides a simple structure with a header, main content area, and footer. The main content area is where the dynamic content will be injected.
+- Keep all content and configuration in `src/data.js` for easy updates.
+- Test your changes by opening `public/index.html` in your browser.
+- If you add new images, place them in `public/assets/` and update the paths in `data.js`.
 
-2. **CSS Styling**: The `style.css` file contains basic styles for the body, header, main content, and footer. You can expand this with more styles as needed.
+---
 
-3. **JavaScript Functionality**: The `script.js` file fetches data from `data.json` using the Fetch API. It then iterates over the items in the JSON file and creates HTML elements to display each item in the main content area.
+## License
 
-4. **Data Separation**: The data is stored in a separate `data.json` file, making it easy to update the content without modifying the HTML or JavaScript files.
-
-### How to Run
-
-1. Create a folder named `my-web-project`.
-2. Create the files as shown above and copy the respective code into each file.
-3. Open `index.html` in a web browser to see the project in action.
-
-This template provides a solid foundation for building a web project that is easy to maintain and extend. You can add more features, styles, and data as needed!
+This project is licensed under the [Apache License 2.0](LICENSE).
